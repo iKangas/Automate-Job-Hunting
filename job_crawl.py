@@ -21,8 +21,7 @@ print 'Let\'s check for {} in {}\n'.format(job_keys, cities)
 
 # lets check
 for city in cities:
-    print '*** City: {} ***'.format(city)
-    print
+    print '*** City: {} ***\n'.format(city)
     # FACEBOOK
     fb_jobs = get_fb_jobs(city)
     for job in fb_jobs:
