@@ -19,19 +19,18 @@ cities = loop_input('city')
 print
 print 'Let\'s check for {} in {}\n'.format(job_keys, cities)
 
-# lets check
-for city in cities:
-    print '*** City: {} ***\n'.format(city)
-    # FACEBOOK
-    fb_jobs = get_fb_jobs(city)
-    for job in fb_jobs:
-        if any(k in job.text for k in job_keys):
-            print 'Title: {}'.format(job.text.encode('ascii', 'ignore'))
-            print 'link: https://www.facebook.com{}\n'.format(job.a['href'])
-    # SPOTIFY
-    spotify_jobs = get_spotify_jobs(city)
-    for job in spotify_jobs:
-        if any(k in job.text for k in job_keys):
-            print 'Title: {}'.format(job.text.encode('ascii', 'ignore'))
-            print 'link: https://www.spotify.com{}\n'.format(job.a['href'])
-    print
+#run for each city
+for raw_city in cities:
+    city = raw_city.lower()
+    print '*** City: {} ***\n'.format(city.upper())
+    #run for each company
+    for company in all_jobs.keys():
+        jobs = all_jobs[company]['jobs'](city)
+        if len(jobs) > 0:
+            print '-- Company: {} --\n'.format(company.title())
+            #filter jobs based on keywords
+            for job in jobs:
+                if any(k.title() in job.text for k in job_keys):
+                    print 'Title: {}'.format(job.text.encode('ascii', 'ignore'))
+                    print 'link: {}{}\n'.format(all_jobs[company]['link'], job.a['href'])
+            print

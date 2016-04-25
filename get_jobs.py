@@ -4,6 +4,17 @@ import urllib
 from bs4 import BeautifulSoup
 from get_location_names import *
 
+all_jobs = {
+    'facebook': {
+        'jobs': get_fb_jobs,
+        'link': 'https://www.facebook.com'
+    },
+    'spotify': {
+        'jobs': get_spotify_jobs,
+        'link': 'https://www.spotify.com'
+    }
+}
+
 
 #facebook
 def get_fb_jobs(city_url):
