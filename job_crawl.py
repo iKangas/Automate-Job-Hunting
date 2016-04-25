@@ -1,11 +1,7 @@
-import urllib
-from bs4 import BeautifulSoup
+__author__ = 'ikangas'
 
-spotify_full_name = {
-    'london': 'london-united-kingdom',
-    'new-york': 'new-york-ny-united-states',
-    'stockholm': 'stockholm-sweden'
-}
+from get_jobs import *
+
 
 def loop_input(ask_for):
     result = []
@@ -15,26 +11,6 @@ def loop_input(ask_for):
             break
         result.append(inp)
     return result
-
-
-def get_fb_jobs(city_url):
-    url = 'https://www.facebook.com/careers/locations/{}/'.format(city_url)
-    html = urllib.urlopen(url).read()
-    soup = BeautifulSoup(html, 'lxml')
-    jobs_url = soup.findAll("div", {"class": "_4hnn"})
-    return jobs_url
-
-
-def get_spotify_jobs(city_url):
-    if city_url in spotify_full_name.keys():
-        city_url = spotify_full_name[city_url]
-        url = 'https://www.spotify.com/gr/jobs/opportunities/all/all/{}/'.format(city_url)
-        html = urllib.urlopen(url).read()
-        soup = BeautifulSoup(html, 'lxml')
-        jobs_url = soup.findAll("h3", {"class": "job-title"})
-        return jobs_url
-    else:
-        return []
 
 # get input data for keywords and cities to search
 job_keys = loop_input('job key')
